@@ -1,0 +1,54 @@
+{
+  "schema_version": "0.1",
+  "module_id": "genbu",
+  "module_name": "玄武防禦模組",
+  "module_family": "fourgods",
+  "module_role": "defense",
+  "version": "0.1",
+  "status": "draft",
+  "entry_file": "CLAUDE.md",
+  "readme_file": "README.md",
+  "integration_file": "INTEGRATION.md",
+  "description": "在聯網、高風險操作、記憶寫入與多實例共享情境中提供防禦保護的模組",
+  "capabilities": [
+    "system_guard",
+    "mode_switch",
+    "memory_protect",
+    "cross_instance_check",
+    "auto_task_guard"
+  ],
+  "trigger_events": [
+    "before_online_access",
+    "before_high_risk_action",
+    "before_memory_write",
+    "on_multi_step_task_start"
+  ],
+  "load_policy": "on_demand",
+  "host_persona_impact": "none",
+  "can_override_persona": false,
+  "requires_user_confirmation": true,
+  "writes_to_host_core": false,
+  "data_roots": [],
+  "config_files": [
+    "config/paths.md"
+  ],
+  "guide_files": [
+    "guides/user-defense-guide.md"
+  ],
+  "rules_files": [
+    "rules/threat-patterns.md"
+  ],
+  "protected_paths": [
+    "config/paths.md",
+    "rules/",
+    "rules/threat-patterns.md"
+  ],
+  "shared_paths": [
+    "<configured-in-config/paths.md#shared-paths>"
+  ],
+  "template_paths": [],
+  "recommends": [
+    "seiryu"
+  ],
+  "coordination_notes": "Use thin routing in CLAUDE.md, AGENTS.md, or the Four Gods router rather than full MEMORY.md rule injection. Protect config/paths.md and rules/threat-patterns.md from untrusted modification. G3 should run before writes to Seiryu data. G4 applies when reading shared paths configured in config/paths.md; the shared_paths field points to that user-defined section rather than machine-specific absolute paths."
+}
