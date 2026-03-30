@@ -4,17 +4,20 @@
 
 ## 整合方式
 
-### 方式一：薄路由註冊（推薦）
+### 方式一：行為規則（推薦）
 
-在你的專案 `CLAUDE.md`、`AGENTS.md` 或四神總路由檔加入極薄提示：
+在你的專案 `CLAUDE.md`、`AGENTS.md` 或四神總路由檔加入以下規則：
 
 ```text
-Defense module: genbu-v0.1/
-Before internet access, high-risk actions, or protected memory writes: read genbu-v0.1/CLAUDE.md first.
+以下規則必須遵守：
+- 執行 git push、聯網、下載、WebSearch、WebFetch 前 → 先讀 genbu-v0.1/CLAUDE.md
+- 執行高風險動作（刪除檔案、安裝軟體、執行腳本）前 → 先讀 genbu-v0.1/CLAUDE.md
+- 寫入記憶檔案前 → 先讀 genbu-v0.1/CLAUDE.md，執行 g3-memory-protect
+- AI 自動執行多步任務時 → 先讀 genbu-v0.1/CLAUDE.md，執行 g5-auto-task-guard
 ```
 
-這樣 host AI 知道玄武存在，也知道什麼情況該先讀入口檔。
-這是一個**路由提示**，不是人格重寫。
+寫成「做 X 之前先做 Y」的格式，比單純列出模組路徑更容易讓 AI 在工作中想起來。
+這是**行為規則**，不是人格重寫。
 
 ### 方式二：口頭告知
 
