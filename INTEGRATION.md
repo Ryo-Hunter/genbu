@@ -39,6 +39,75 @@
 
 ---
 
+## 方式四：Claude Code Hooks（半強制，推薦）
+
+方式一到三都依賴 AI 自律——AI 忙起來可能忘記檢查。
+Hooks 是平台層的提醒機制，AI 每次使用工具時都會自動收到提醒，不依賴自律。
+
+**適用環境：** Claude Code（CLI / Desktop / IDE 擴充）
+
+### 設定步驟
+
+1. 把 `hooks/` 目錄裡的腳本複製到你的 `~/.claude/hooks/`（或任何你方便的位置）
+2. 在你的專案 `.claude/settings.json` 加入以下設定：
+
+```json
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "WebSearch|WebFetch",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ~/.claude/hooks/genbu-online-guard.sh",
+            "timeout": 10
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ~/.claude/hooks/genbu-git-guard.sh",
+            "timeout": 10
+          }
+        ]
+      },
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ~/.claude/hooks/genbu-memory-guard.sh",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+3. 重新開啟 Claude Code 視窗即可生效
+
+### 提供的 Hook 腳本
+
+| 腳本 | 觸發時機 | 做什麼 |
+|------|---------|--------|
+| `genbu-online-guard.sh` | WebSearch / WebFetch 前 | 提醒讀 g2-mode-switch |
+| `genbu-git-guard.sh` | git push 前 | 提醒 RED 級動作確認 |
+| `genbu-memory-guard.sh` | 寫入記憶檔案前 | 提醒讀 g3-memory-protect |
+
+### 注意
+
+- Hooks 只注入提醒文字，不會阻止操作
+- 如果你想讓 Hook 直接阻止危險操作，可以修改腳本的 exit code 為 2
+- Hooks 是 Claude Code 平台功能，其他 AI 平台請使用方式一到三
+
+---
+
 ## 重要：不要把完整技能條款放進 MEMORY.md
 
 玄武是模組，不是新的主人格。

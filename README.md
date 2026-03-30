@@ -66,6 +66,10 @@ genbu-v0.1/
     threat-patterns.md     <- 已知威脅模式
   config/
     paths.md               <- 使用者自訂路徑設定
+  hooks/
+    genbu-online-guard.sh  <- Claude Code Hook：聯網前提醒
+    genbu-git-guard.sh     <- Claude Code Hook：git push 前提醒
+    genbu-memory-guard.sh  <- Claude Code Hook：記憶寫入前提醒
   guides/
     user-defense-guide.md  <- 使用者防禦指南（給人看的）
 ```
