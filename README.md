@@ -1,8 +1,8 @@
 # 玄武 Genbu v0.1
 
-**四神系統的第三神 - 防禦與保護**
+**繁體中文** | [English](README_EN.md)
 
-> **English:** Genbu is a defense & protection module for AI assistants. It guards against prompt injection, memory poisoning, chain attacks, and cross-instance contamination. All rules are local Markdown files — no external dependencies. See `CLAUDE.md` for the AI entry point.
+**四神系統的第三神 - 防禦與保護**
 
 ---
 
